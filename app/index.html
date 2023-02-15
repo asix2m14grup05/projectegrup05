@@ -47,53 +47,55 @@
     <h1>Configuració DHCP bàsic</h1>
         <p>
             <label for="authoritative">Authoritative:</label>
-            <select name="authoritative" id="authoritative">
+            <select name="authoritative" id="authoritative" required>
+                <option value="none" selected disabled hidden>Selecciona</option>
                 <option value="authoritative">Si</option>
                 <option value="no-authoritative">No</option>
             </select>
         </p>
         <p>
             <label for="ddns-update-style">ddns-update-style:</label>
-            <select name="ddns-update-style" id="ddns-update-style">
+            <select name="ddns-update-style" id="ddns-update-style" required>
+                <option value="none" selected disabled hidden>Selecciona</option>
                 <option value="interim">Interim</option>
                 <option value="none">None</option>
             </select>
         </p>
         <p>
             <label for="domain-name">domain-name:</label>
-            <input type="text" name="domain-name" id="domain-name">
+            <input type="text" name="domain-name" id="domain-name" required>
         </p>
         <p>
             <label for="domain-name-servers">domain-name-servers:</label>
-            <input type="text" name="domain-name-servers" id="domain-name-servers">
+            <input type="text" name="domain-name-servers" id="domain-name-servers" required>
         </p>
         <p>
             <label for="option-routers">option-routers:</label>
-            <input type="text" name="option-routers" id="option-routers">
+            <input type="text" name="option-routers" id="option-routers" required>
         </p>
         <p>
             <label for="default-lease-time">default-lease-time:</label>
-            <input type="text" name="default-lease-time" id="default-lease-time">
+            <input type="text" name="default-lease-time" id="default-lease-time" required>
         </p>
         <p>
             <label for="max-lease-time">max-lease-time:</label>
-            <input type="text" name="max-lease-time" id="max-lease-time">
+            <input type="text" name="max-lease-time" id="max-lease-time" required>
         </p>
         <p>
             <label for="subnet">subnet:</label>
-            <input type="text" name="subnet" id="subnet">
+            <input type="text" name="subnet" id="subnet" required>
         </p>
         <p>
             <label for="netmask">netmask:</label>
-            <input type="text" name="netmask" id="netmask">
+            <input type="text" name="netmask" id="netmask" required>
         </p>
         <p>
             <label for="range1">range (inicial):</label>
-            <input type="text" name="range1" id="range1">
+            <input type="text" name="range1" id="range1" required>
         </p>
         <p>
             <label for="range2">range (final):</label>
-            <input type="text" name="range2" id="range2">
+            <input type="text" name="range2" id="range2" required>
         </p>
         <p>
             <input type="checkbox" name="avanzado" id="avanzado" onchange="configuracionAvanzada()"> 
