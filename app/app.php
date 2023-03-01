@@ -21,6 +21,9 @@ if (!isset($_POST['submit'])) {
     $unknownrange1 = $_POST['unknownrange1'];
     $unknownrange2 = $_POST['unknownrange2'];
 
+    $lease_timeknown = $_POST['lease_timeknown'];
+    $lease_timeunknown = $_POST['lease_timeunknown'];
+
     $host1 = $_POST['host1'];
     $hardware_ethernet1 = $_POST['hardware-ethernet1'];
 
@@ -64,7 +67,7 @@ if (!isset($_POST['submit'])) {
   max-lease-time " . $max_lease_time . ";<br><br>
   ";
 
-    if (empty($host) && empty($hardware_ethernet) && empty($fixed_address) && empty($host1) && empty($host2) && empty($host3) && empty($hardware_ethernet1) && empty($hardware_ethernet2) && empty($hardware_ethernet3) && empty($knownrange1) && empty($knownrange2) && empty($unknownrange2) && empty($unknownrange2)){
+    if (empty($host) && empty($hardware_ethernet) && empty($fixed_address) && empty($host1) && empty($host2) && empty($host3) && empty($hardware_ethernet1) && empty($hardware_ethernet2) && empty($hardware_ethernet3) && empty($knownrange1) && empty($knownrange2) && empty($unknownrange2) && empty($unknownrange2) && empty($lease_timeknown) && empty($lease_timeunknown)){
         echo "
    # Defineix una subxarxa<br>
     subnet " . $subnet . " netmask " . $netmask . " {<br><br>
@@ -84,12 +87,14 @@ if (!isset($_POST['submit'])) {
       &nbsp &nbsp pool{<br>
       &nbsp &nbsp &nbsp &nbsp range $knownrange1 $knownrange2;<br>
       &nbsp &nbsp &nbsp &nbsp allow known-clients;<br>
+      &nbsp &nbsp &nbsp &nbsp default-lease-time $lease_timeknown;<br>
       &nbsp &nbsp}<br><br>
 
       &nbsp &nbsp #Pool unknown hosts<br>
       &nbsp &nbsp pool{<br>
       &nbsp &nbsp &nbsp &nbsp range $unknownrange1 $unknownrange2;<br>
       &nbsp &nbsp &nbsp &nbsp deny unknown-clients;<br>
+      &nbsp &nbsp &nbsp &nbsp default-lease-time $lease_timeunknown;<br>
       &nbsp &nbsp}<br><br>
 
       &nbsp &nbsp # Configuracio d´host específic<br>

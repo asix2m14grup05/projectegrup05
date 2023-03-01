@@ -101,6 +101,24 @@
             <input type="text" name="range2" id="range2" required>
         </p>
         <p>
+            <h3>Pool known hosts</h3>
+            <label for="lease_timeknown">lease-time:</label>
+            <input type="text" name="lease_timeknown" id="lease_timeknown"><br>
+            <label for="knownrange1">range (inicial):</label>
+            <input type="text" name="knownrange1" id="knownrange1"><br>
+            <label for="knownrange2">range (final):</label>
+            <input type="text" name="knownrange2" id="knownrange2">
+        </p>
+        <p>
+            <h3>Pool unknown hosts</h3>
+            <label for="lease_timeunknown">lease-time:</label>
+            <input type="text" name="lease_timeunknown" id="lease_timeunknown"><br>
+            <label for="unknownrange1">range (inicial):</label>
+            <input type="text" name="unknownrange1" id="unknownrange1"><br>
+            <label for="unknownrange2">range (final):</label>
+            <input type="text" name="unknownrange2" id="unknownrange2">
+        </p>
+        <p>
             <input type="checkbox" name="avanzado" id="avanzado" onchange="configuracionAvanzada()">
             <label for="avanzado">Vull configuració avançada</label>
         </p>
