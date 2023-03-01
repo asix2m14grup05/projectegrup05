@@ -15,6 +15,12 @@ if (!isset($_POST['submit'])) {
     $hardware_ethernet = $_POST['hardware-ethernet'];
     $fixed_address = $_POST['fixed-address'];
 
+    $knownrange1 = $_POST['knownrange1'];
+    $knownrange2 = $_POST['knownrange2'];
+
+    $unknownrange1 = $_POST['unknownrange1'];
+    $unknownrange2 = $_POST['unknownrange2'];
+
     $host1 = $_POST['host1'];
     $hardware_ethernet1 = $_POST['hardware-ethernet1'];
 
@@ -58,7 +64,7 @@ if (!isset($_POST['submit'])) {
   max-lease-time " . $max_lease_time . ";<br><br>
   ";
 
-    if (empty($host) && empty($hardware_ethernet) && empty($fixed_address) && empty($host1) && empty($host2) && empty($host3) && empty($hardware_ethernet1) && empty($hardware_ethernet2) && empty($hardware_ethernet3)) {
+    if (empty($host) && empty($hardware_ethernet) && empty($fixed_address) && empty($host1) && empty($host2) && empty($host3) && empty($hardware_ethernet1) && empty($hardware_ethernet2) && empty($hardware_ethernet3) && empty($knownrange1) && empty($knownrange2) && empty($unknownrange2) && empty($unknownrange2)){
         echo "
    # Defineix una subxarxa<br>
     subnet " . $subnet . " netmask " . $netmask . " {<br><br>
@@ -74,6 +80,18 @@ if (!isset($_POST['submit'])) {
       &nbsp &nbsp # Rang d´adreces IP assignables<br>
       &nbsp &nbsp range " . $range1 . " " . $range2 . ";<br><br>
 
+      &nbsp &nbsp #Pool knonw hosts<br>
+      &nbsp &nbsp pool{<br>
+      &nbsp &nbsp &nbsp &nbsp range $knownrange1 $knownrange2;<br>
+      &nbsp &nbsp &nbsp &nbsp allow known-clients;<br>
+      &nbsp &nbsp}<br><br>
+
+      &nbsp &nbsp #Pool unknown hosts<br>
+      &nbsp &nbsp pool{<br>
+      &nbsp &nbsp &nbsp &nbsp range $unknownrange1 $unknownrange2;<br>
+      &nbsp &nbsp &nbsp &nbsp deny unknown-clients;<br>
+      &nbsp &nbsp}<br><br>
+
       &nbsp &nbsp # Configuracio d´host específic<br>
       &nbsp &nbsp host " . $host . "{<br>
       &nbsp &nbsp &nbsp &nbsp # Adreça MAC de l´host<br>
@@ -84,7 +102,7 @@ if (!isset($_POST['submit'])) {
       &nbsp &nbsp }<br>
       }<br>
     ";
-    } elseif (empty($host2) && empty($host3) && empty($hardware_ethernet2) && empty($hardware_ethernet3)) {
+    } elseif (empty($host2) && empty($host3) && empty($hardware_ethernet2) && empty($hardware_ethernet3) && empty($knownrange1) && empty($knownrange2) && empty($unknownrange2) && empty($unknownrange2) ) {
         echo "
         # Defineix una subxarxa<br>
           subnet " . $subnet . " netmask " . $netmask . " {<br><br>
@@ -105,11 +123,9 @@ if (!isset($_POST['submit'])) {
           &nbsp &nbsp &nbsp &nbsp # Adreça MAC de l´host<br>
           &nbsp &nbsp &nbsp &nbsp hardware ethernet " . $hardware_ethernet1 . ";<br><br>
           &nbsp &nbsp }<br>
-
-
           }<br>
         ";
-    } elseif (empty($host3) && empty($hardware_ethernet3)) {
+    } elseif (empty($host3) && empty($hardware_ethernet3) && empty($knownrange1) && empty($knownrange2) && empty($unknownrange2) && empty($unknownrange2)) {
         echo "
         # Defineix una subxarxa<br>
           subnet " . $subnet . " netmask " . $netmask . " {<br><br>
