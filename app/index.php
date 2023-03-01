@@ -47,7 +47,7 @@
 </style>
 <body>
     <form action="app.php" method="POST">
-    <h1>Configuració DHCP avançada</h1>
+    <h1>Configuració DHCP avançada (Versió 1.6)</h1>
         <p>
             <label for="authoritative">Authoritative:</label>
             <select name="authoritative" id="authoritative" required>
