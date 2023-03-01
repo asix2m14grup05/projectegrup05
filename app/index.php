@@ -1,83 +1,153 @@
-<?php
-if (!isset($_POST['submit'])) {
-  $authoritative = $_POST['authoritative'];
-  $ddns_update_style = $_POST['ddns-update-style'];
-  $domain_name = $_POST['domain-name'];
-  $domain_name_servers = $_POST['domain-name-servers'];
-  $option_routers = $_POST['option-routers'];
-  $default_lease_time = $_POST['default-lease-time'];
-  $max_lease_time = $_POST['max-lease-time'];
-  $subnet = $_POST['subnet'];
-  $netmask = $_POST['netmask'];
-  $range1 = $_POST['range1'];
-  $range2 = $_POST['range2'];
-  $host = $_POST['host'];
-  $hardware_ethernet = $_POST['hardware-ethernet'];
-  $fixed_address = $_POST['fixed-address'];
-  echo "<h3>Arxiu dhcpd.conf generat.</h3>";
+<!DOCTYPE html>
+<html>
 
-  echo "
-  # dhcpd.conf<br><br>
-  # Configuracio del servidor DHCP<br><br>
-  ";
-  if ($authoritative == "authoritative") {
-    echo "
-    # Especifica que aquest servidor es l´autoritat per a la xarxa<br>
-    authoritative;<br><br>";
-  } else {
-    echo "";
-  }
+<head>
+    <title>Configuració DHCP</title>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"
+</head>
+<style>
+    body{
+     font-family: 'Source Sans Pro', sans-serif;o
 
-  echo "
-  # Defineix l´estil d'actualitzacio per a registres DDNS<br>
-  ddns-update-style " . $ddns_update_style . ";<br><br>
-
-  # Nom de domini<br>
-  domain-name '" . $domain_name . "';<br><br>
-
-  # Servidors de noms de domini<br>
-  domain-name-servers " . $domain_name_servers . ";<br><br>
-
-  # Porta d´enllaç per defecte<br>
-  option routers " . $option_routers . ";<br><br>
-
-  # Temps de prestec per defecte (en segons)<br>
-  default-lease-time " . $default_lease_time . ";<br><br>
-
-  # Temps maxim de prestec (en segons)<br>
-  max-lease-time " . $max_lease_time . ";<br><br>
-  ";
-  
- 
-
-  if (empty($host) && empty($hardware_ethernet) && empty($fixed_address)){
-   echo "
-   # Defineix una subxarxa<br>
-    subnet " . $subnet . " netmask ". $netmask . " {<br><br>
-    &nbsp &nbsp # Rang d´adreces IP assignables<br>
-    &nbsp &nbsp range " . $range1 . " ". $range2 . ";<br><br>
-   }
-   ";
-
-  } else {
-    echo "
-    # Defineix una subxarxa<br>
-      subnet " . $subnet . " netmask ". $netmask . " {<br><br>
-      &nbsp &nbsp # Rang d´adreces IP assignables<br>
-      &nbsp &nbsp range " . $range1 . " ". $range2 . ";<br><br>
-
-      &nbsp &nbsp # Configuracio d´host específic<br>
-      &nbsp &nbsp host " . $host . "{<br>
-      &nbsp &nbsp &nbsp &nbsp # Adreça MAC de l´host<br>
-      &nbsp &nbsp &nbsp &nbsp hardware ethernet " . $hardware_ethernet . ";<br><br>
-
-      &nbsp &nbsp &nbsp &nbsp # Adreça IP fixa per a l´host<br>
-      &nbsp &nbsp &nbsp &nbsp fixed-address " . $fixed_address . ";<br>
-      &nbsp &nbsp }<br>
     }
-    ";
-  
-  }
-}
+    form {
+        width: 500px;
+        margin: 0 auto;
+        text-align: left;
+        border: 1px solid black;
+        padding: 50px 80px 50px 80px;
+        border-radius: 5px;
+    }
 
-?>
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"], select {
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 20px;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: black;
+        color: white;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+    }
+.cajaHost{
+        border: 1px solid black;
+        padding: 0px 40px 0px 40px;
+}
+</style>
+<body>
+    <form action="app.php" method="POST">
+    <h1>Configuració DHCP bàsic</h1>
+        <p>
+            <label for="authoritative">Authoritative:</label>
+            <select name="authoritative" id="authoritative" required>
+                <option value="none" selected disabled hidden>Selecciona</option>
+                <option value="authoritative">Si</option>
+                <option value="no-authoritative">No</option>
+            </select>
+        </p>
+        <p>
+            <label for="ddns-update-style">ddns-update-style:</label>
+            <select name="ddns-update-style" id="ddns-update-style" required>
+                <option value="none" selected disabled hidden>Selecciona</option>
+                <option value="interim">Interim</option>
+                <option value="none">None</option>
+            </select>
+        </p>
+        <p>
+            <label for="domain-name">domain-name:</label>
+            <input type="text" name="domain-name" id="domain-name" required>
+        </p>
+        <p>
+            <label for="domain-name-servers">domain-name-servers:</label>
+            <input type="text" name="domain-name-servers" id="domain-name-servers" required>
+        </p>
+        <p>
+            <label for="option-routers">option-routers:</label>
+            <input type="text" name="option-routers" id="option-routers" required>
+        </p>
+        <p>
+            <label for="default-lease-time">default-lease-time:</label>
+            <input type="text" name="default-lease-time" id="default-lease-time" required>
+        </p>
+        <p>
+            <label for="max-lease-time">max-lease-time:</label>
+            <input type="text" name="max-lease-time" id="max-lease-time" required>
+        </p>
+        <p>
+            <label for="subnet">subnet:</label>
+            <input type="text" name="subnet" id="subnet" required>
+        </p>
+        <p>
+            <label for="netmask">netmask:</label>
+            <input type="text" name="netmask" id="netmask" required>
+        </p>
+        <p>
+            <label for="range1">range (inicial):</label>
+            <input type="text" name="range1" id="range1" required>
+        </p>
+        <p>
+            <label for="range2">range (final):</label>
+            <input type="text" name="range2" id="range2" required>
+        </p>
+        <p>
+            <input type="checkbox" name="avanzado" id="avanzado" onchange="configuracionAvanzada()">
+            <label for="avanzado">Vull configuració avançada</label>
+        </p>
+        <div id="mostrarDiv" style="display:none;">
+             <div class="cajaHost">
+             <p>
+                <label for="host">host:</label>
+                <input type="text" name="host" id="host">
+            </p>
+            <p>
+                <label for="hardware-ethernet">hardware ethernet:</label>
+                <input type="text" name="hardware-ethernet" id="hardware-ethernet">
+            </p>
+            <p>
+                <label for="fixed-address">fixed-address:</label>
+                <input type="text" name="fixed-address" id="fixed-address">
+            </p>
+        </div><br>
+        <?php for ($i = 1; $i <= 3; $i++):?>
+              <div class="cajaHost">
+              <p>
+                 <label for="host">host</label>
+                 <input type="text" name="host<?php echo $i; ?>" id="host">
+               </p>
+               <p>
+                 <label for="hardware-ethernet">hardware ethernet:</label>
+                 <input type="text" name="hardware-ethernet<?php echo $i;?>" id="hardware-ethernet">
+              </p>
+              </div><br>
+            <?php endfor; ?>
+        <br>
+        </div>
+        <p>
+            <input type="submit" value="Generar arxiu de configuració">
+        </p>
+    </form>
+</body>
+<script>
+    function configuracionAvanzada() {
+        var checkbox = document.getElementById("avanzado");
+        var mostrarDiv = document.getElementById("mostrarDiv");
+        if (checkbox.checked) {
+            mostrarDiv.style.display = "block";
+        } else {
+            mostrarDiv.style.display = "none";
+        }
+    }
+</script>
+
+</html>
